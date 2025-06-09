@@ -1,5 +1,5 @@
-package com.main.main.API.controllers;
-import com.main.main.Application.DTOs.Bank.BankAccountInsertDTO;
+package com.main.main.API.Controllers;
+import com.main.main.API.DTOs.Bank.CreateBankAccountDTO;
 import com.main.main.Domain.Entities.BankAccount;
 import com.main.main.Application.Interface.IRepositories.IBankAccountRepository;
 import com.main.main.Application.mappers.BankAccountMapper;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@RequestMapping("/api/Test")
 public class TestController {
 
     private final IBankAccountRepository repo;
@@ -19,30 +19,20 @@ public class TestController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/api/SayYo")
-    public String SayYo() {
-        return "Hello world";
-    }
-
-    @PostMapping("/api/Greet")
-    public String Greet(@RequestParam String name) {
-        return "Hello " + name;
-    }
-
-    @PostMapping("/api/GetAll")
+    @PostMapping("GetAll")
     public List<BankAccount> GetAll() {
         var x = repo.findAll();
         return x;
     }
 
-    @PostMapping("/api/GetByAccNumber")
+    @PostMapping("GetByAccNumber")
     public BankAccount GetByAccNum(@RequestBody String accNum) {
         var x = repo.findByAccountNumber(accNum);
         return x;
     }
 
-    @PostMapping("/api/Insert")
-    public BankAccount Insert(@RequestBody BankAccountInsertDTO model) {
+    @PostMapping("Insert")
+    public BankAccount Insert(@RequestBody CreateBankAccountDTO model) {
         BankAccount account = mapper.mapToModel(model);
         return repo.save(account);
     }

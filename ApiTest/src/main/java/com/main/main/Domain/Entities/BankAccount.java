@@ -1,28 +1,37 @@
 package com.main.main.Domain.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.main.main.Domain.Enums.AccountType;
+import com.main.main.Domain.Enums.CurrencyType;
+import com.main.main.Domain.Shared.Audit;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BankAccount {
+public class BankAccount extends Audit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long accountId;
+
+    @Column(nullable = false, unique = true)
     private String accountNumber;
-    private String accountType;
-    private double balance;
-    private String currency;
-    private User user;
+
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
+
+    private double balance = 0;
+    private CurrencyType currency;
+
+    @ManyToOne
+    private Users users;
 
 //    // Override the toString() method to print the value in this format in BankManagerService's ViewAllUser Method
 //    @Override

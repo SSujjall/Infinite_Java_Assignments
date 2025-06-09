@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @MappedSuperclass
 public class Audit {
     private Long createdBy;
-    private LocalDate createdAt;
+    private LocalDate createdAt = LocalDate.now();
     private Long updatedBy;
     private LocalDate updatedAt;
     private Long statusId;
