@@ -1,4 +1,4 @@
-package com.main.main.Models.Entities;
+package com.main.main.Domain.Entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,14 +19,16 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String accountNumber;
-    private String accountHolderName;
+    private String accountType;
     private double balance;
+    private String currency;
+    private User user;
 
-    // Override the toString() method to print the value in this format in BankManagerService's ViewAllUser Method
-    @Override
-    public String toString(){
-        return "\nAccountNumber: " + accountNumber +
-                "\nName: " + accountHolderName +
-                "\nBalance: " + balance;
-    }
+//    // Override the toString() method to print the value in this format in BankManagerService's ViewAllUser Method
+//    @Override
+//    public String toString(){
+//        return "\nAccountNumber: " + accountNumber +
+//                "\nName: " + accountHolderName +
+//                "\nBalance: " + balance;
+//    }
 }

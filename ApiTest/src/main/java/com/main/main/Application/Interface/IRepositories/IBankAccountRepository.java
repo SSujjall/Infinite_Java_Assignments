@@ -1,6 +1,6 @@
-package com.main.main.Repositories;
+package com.main.main.Application.Interface.IRepositories;
 
-import com.main.main.Models.Entities.BankAccount;
+import com.main.main.Domain.Entities.BankAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

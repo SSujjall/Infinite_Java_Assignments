@@ -1,8 +1,8 @@
-package com.main.main.controllers;
-import com.main.main.Models.DTOs.BankAccountInsertDTO;
-import com.main.main.Models.Entities.BankAccount;
-import com.main.main.Repositories.IBankAccountRepository;
-import com.main.main.mappers.BankAccountMapper;
+package com.main.main.API.controllers;
+import com.main.main.Application.DTOs.Bank.BankAccountInsertDTO;
+import com.main.main.Domain.Entities.BankAccount;
+import com.main.main.Application.Interface.IRepositories.IBankAccountRepository;
+import com.main.main.Application.mappers.BankAccountMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
