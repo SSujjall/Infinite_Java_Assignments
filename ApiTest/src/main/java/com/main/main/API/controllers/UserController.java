@@ -2,7 +2,7 @@ package com.main.main.API.Controllers;
 
 import com.main.main.API.ResponseModel.ApiResponse;
 import com.main.main.Application.Interface.IServices.IUserService;
-import com.main.main.Domain.Entities.Users;
+import com.main.main.Domain.Shared.Users;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

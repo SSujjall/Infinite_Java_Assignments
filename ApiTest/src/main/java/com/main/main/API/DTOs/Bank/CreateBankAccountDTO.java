@@ -9,5 +9,11 @@ import lombok.Builder;
 public record CreateBankAccountDTO(
     AccountType accountType,
     CurrencyType currency,
-    CreateUserDTO user
+    String username,
+    String email,
+    String password,
+    String firstName,
+    String lastName,
+    String phoneNumber,
+    Long roleId
 ) {}

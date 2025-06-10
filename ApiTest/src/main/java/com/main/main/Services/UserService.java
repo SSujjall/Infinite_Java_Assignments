@@ -1,15 +1,15 @@
 package com.main.main.Services;
 
-import com.main.main.Application.Interface.IRepositories.IUserRepository;
+import com.main.main.Application.Interface.IRepositories.ICustomerRepository;
 import com.main.main.Application.Interface.IServices.IUserService;
-import com.main.main.Domain.Entities.Users;
+import com.main.main.Domain.Shared.Users;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService implements IUserService {
-    private final IUserRepository userRepo;
+    private final ICustomerRepository userRepo;
 
-    public UserService(IUserRepository userRepo) {
+    public UserService(ICustomerRepository userRepo) {
         this.userRepo = userRepo;
     }
 

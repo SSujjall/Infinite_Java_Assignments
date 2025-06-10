@@ -2,51 +2,53 @@ package com.main.main.Services;
 
 import com.main.main.API.DTOs.Bank.CreateBankAccountDTO;
 import com.main.main.API.DTOs.Bank.UpdateBankAccountDTO;
-import com.main.main.API.DTOs.Users.CreateUserDTO;
 import com.main.main.Application.Interface.IRepositories.IBankAccountRepository;
-import com.main.main.Application.Interface.IRepositories.IUserRepository;
+import com.main.main.Application.Interface.IRepositories.ICustomerRepository;
+import com.main.main.Application.Interface.IRepositories.IRoleRepository;
+import com.main.main.Application.Interface.IRepositories.IUserRoleRepository;
 import com.main.main.Application.Interface.IServices.IBankAccountService;
 import com.main.main.Domain.Entities.BankAccount;
-import com.main.main.Domain.Entities.Users;
+import com.main.main.Domain.Entities.Customers;
+import com.main.main.Domain.Entities.Roles;
+import com.main.main.Domain.Entities.UserRole;
 import com.main.main.Domain.Enums.AccountType;
+import com.main.main.Domain.Enums.CurrencyType;
+import com.main.main.Domain.Shared.UserRoleId;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class BankAccountService implements IBankAccountService {
     private final IBankAccountRepository bankAccRepo;
-    private final IUserRepository userRepo;
-
-    public BankAccountService(IBankAccountRepository bankAccRepo, IUserRepository userRepo) {
-        this.bankAccRepo = bankAccRepo;
-        this.userRepo = userRepo;
-    }
+    private final ICustomerRepository customerRepo;
+    private final IRoleRepository roleRepo;
+    private final IUserRoleRepository userRoleRepo;
 
     @Override
     public BankAccount CreateNewAccount(CreateBankAccountDTO dto) {
-        CreateUserDTO userDto = dto.user();
-
-//        Users userModel = new Users();
-//        userModel.setUsername(userDto.username());
-//        userModel.setPassword(userDto.password());
-//        userModel.setFirstName(userDto.firstName());
-//        userModel.setLastName(userDto.lastName());
-//        userModel.setEmail(userDto.email());
-//        userModel.setPhoneNumber(userDto.phoneNumber());
-//        userModel.setUserType(userDto.userType());
-
-        Users userModel = Users.builder()
-                .username(userDto.username())
-                .password(userDto.password())
-                .firstName(userDto.firstName())
-                .lastName(userDto.lastName())
-                .email(userDto.email())
-                .phoneNumber(userDto.phoneNumber())
-                .userType(userDto.userType())
+        Customers customer = Customers.builder()
+                .username(dto.username())
+                .email(dto.email())
+                .password(dto.password())
+                .firstName(dto.firstName())
+                .lastName(dto.lastName())
+                .phoneNumber(dto.phoneNumber())
+                .customerCode(System.currentTimeMillis())
                 .build();
+        var savedCustomer = customerRepo.save(customer);
 
-        var savedUser = userRepo.save(userModel);
+        Roles role = roleRepo.findById(dto.roleId()).orElse(null);
+
+        UserRole userRole = new UserRole(
+            new UserRoleId(savedCustomer.getUserId(), role.getRoleId()),
+            savedCustomer,
+            role
+        );
+
+        userRoleRepo.save(userRole);
 
         String accountNumber;
         if (dto.accountType() == AccountType.CURRENT) {
@@ -55,14 +57,14 @@ public class BankAccountService implements IBankAccountService {
             accountNumber = "1220-" + UUID.randomUUID().toString();
         }
 
-        BankAccount bankAccount = BankAccount.builder()
+        BankAccount account = BankAccount.builder()
                 .accountNumber(accountNumber)
-                .accountType(dto.accountType())
-                .currency(dto.currency())
-                .users(savedUser)
+                .accountType(AccountType.valueOf(String.valueOf(dto.accountType())))
+                .currency(CurrencyType.valueOf(String.valueOf(dto.currency())))
+                .user(savedCustomer)
                 .build();
 
-        return bankAccRepo.save(bankAccount);
+        return bankAccRepo.save(account);
     }
 
     @Override
