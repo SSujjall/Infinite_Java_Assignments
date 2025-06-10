@@ -1,5 +1,6 @@
 package com.main.main.Domain.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.main.main.Domain.Enums.AccountType;
 import com.main.main.Domain.Enums.CurrencyType;
 import com.main.main.Domain.Shared.Audit;

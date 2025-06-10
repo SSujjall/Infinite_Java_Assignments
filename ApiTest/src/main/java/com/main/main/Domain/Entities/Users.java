@@ -1,4 +1,5 @@
 package com.main.main.Domain.Entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.main.main.Domain.Enums.UserType;
 import com.main.main.Domain.Shared.Audit;
 import jakarta.persistence.*;
@@ -34,4 +35,8 @@ public class Users extends Audit {
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    @OneToMany(mappedBy = "users", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<BankAccount> bankAccounts;
 }
