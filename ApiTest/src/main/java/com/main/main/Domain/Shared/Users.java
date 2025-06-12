@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public abstract class Users extends Audit {
+public class Users extends Audit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     protected Long userId;
