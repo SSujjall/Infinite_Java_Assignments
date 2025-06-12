@@ -3,7 +3,7 @@ package com.main.main.Services;
 import com.main.main.API.DTOs.Bank.CreateBankAccountDTO;
 import com.main.main.API.DTOs.Bank.UpdateBankAccountDTO;
 import com.main.main.Application.Interface.IRepositories.IBankAccountRepository;
-import com.main.main.Application.Interface.IRepositories.ICustomerRepository;
+import com.main.main.Application.Interface.IRepositories.IUserRepository;
 import com.main.main.Application.Interface.IRepositories.IRoleRepository;
 import com.main.main.Application.Interface.IRepositories.IUserRoleRepository;
 import com.main.main.Application.Interface.IServices.IBankAccountService;
@@ -23,7 +23,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class BankAccountService implements IBankAccountService {
     private final IBankAccountRepository bankAccRepo;
-    private final ICustomerRepository customerRepo;
+    private final IUserRepository customerRepo;
     private final IRoleRepository roleRepo;
     private final IUserRoleRepository userRoleRepo;
 
