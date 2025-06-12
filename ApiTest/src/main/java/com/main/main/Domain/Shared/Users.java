@@ -39,6 +39,6 @@ public class Users extends Audit {
     @JsonIgnore
     private List<BankAccount> bankAccounts;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<UserRole> userRoles;
 }

@@ -7,6 +7,7 @@ import com.main.main.Application.Interface.IServices.IBankAccountService;
 import com.main.main.Domain.Entities.BankAccount;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -49,5 +50,11 @@ public class BankAccountController {
         } catch (Exception e) {
             return ResponseEntity.ok(ApiResponse.failed("Failed with exception: " + e.getMessage()));
         }
+    }
+
+    @PreAuthorize("hasRole('admin')")
+    @GetMapping("/only-admin-can-access")
+    public ResponseEntity<String> adminEndpoint() {
+        return ResponseEntity.ok("You're an admin!");
     }
 }
