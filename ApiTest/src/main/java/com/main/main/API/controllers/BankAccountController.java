@@ -5,17 +5,15 @@ import com.main.main.API.DTOs.Bank.UpdateBankAccountDTO;
 import com.main.main.API.ResponseModel.ApiResponse;
 import com.main.main.Application.Interface.IServices.IBankAccountService;
 import com.main.main.Domain.Entities.BankAccount;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/BankAccount")
+@RequiredArgsConstructor
 public class BankAccountController {
     private final IBankAccountService service;
-
-    public BankAccountController(IBankAccountService service) {
-        this.service = service;
-    }
 
     @GetMapping("get-all-accounts")
     public ResponseEntity<ApiResponse<Iterable<BankAccount>>> GetAllAccount() {
