@@ -2,6 +2,7 @@ package com.main.main.Services.Helpers;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -10,7 +11,9 @@ import java.util.function.Function;
 
 @Component
 public class JwtHelper {
-    private final String SECRET_KEY = "ByYM000OLlMQG6VV8uyr57Xzyr7gHuw1qvUC5dcGt3SNM";
+
+    @Value("${jwt.secret.key}")
+    private String SECRET_KEY;
     private final long EXPIRATION_TIME = 1000 * 60 * 60 * 10; // 10 hours
 
     private Key getSigningKey() {
@@ -45,7 +48,10 @@ public class JwtHelper {
 
     public boolean isTokenValid(String token, String username) {
         final String extractedUsername = extractUsername(token);
-        return extractedUsername.equals(username) && !isTokenExpired(token);
+        if (extractedUsername.equals(username) && !isTokenExpired(token)) {
+            return true;
+        }
+        return false;
     }
 
     private boolean isTokenExpired(String token) {

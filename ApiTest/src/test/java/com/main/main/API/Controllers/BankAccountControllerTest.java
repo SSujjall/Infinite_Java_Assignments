@@ -1,6 +1,7 @@
 package com.main.main.API.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.main.main.API.DTOs.Auth.LoginDTO;
 import com.main.main.API.DTOs.Bank.CreateBankAccountDTO;
 import com.main.main.API.ResponseModel.ApiResponse;
 import com.main.main.Application.Interface.IServices.IBankAccountService;
@@ -93,6 +94,10 @@ class BankAccountControllerTest {
 
     @Test
     void createNewAccount_Success() throws Exception{
+//        LoginDTO loginReq = LoginDTO.builder()
+//                .username("1")
+
+
         CreateBankAccountDTO req = CreateBankAccountDTO.builder()
                         .accountType(AccountType.SAVING)
                         .currency(CurrencyType.NPR)

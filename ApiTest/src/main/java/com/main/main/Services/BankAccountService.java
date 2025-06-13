@@ -15,6 +15,8 @@ import com.main.main.Domain.Enums.AccountType;
 import com.main.main.Domain.Enums.CurrencyType;
 import com.main.main.Domain.Shared.UserRoleId;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -27,12 +29,15 @@ public class BankAccountService implements IBankAccountService {
     private final IRoleRepository roleRepo;
     private final IUserRoleRepository userRoleRepo;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @Override
     public BankAccount CreateNewAccount(CreateBankAccountDTO dto) {
         Customers customer = Customers.builder()
                 .username(dto.username())
                 .email(dto.email())
-                .password(dto.password())
+                .password(encoder.encode(dto.password()))
                 .firstName(dto.firstName())
                 .lastName(dto.lastName())
                 .phoneNumber(dto.phoneNumber())

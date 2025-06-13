@@ -29,13 +29,16 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
+            .headers(x -> x.frameOptions(y -> y.disable()))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/api/Auth/**",
                     "/h2-console/**",
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
-                    "/swagger-ui.html"
+                    "/swagger-ui.html",
+                    "/api/Role/**",
+                    "/api/BankAccount/create-new-account"
                 ).permitAll()
                 .anyRequest().authenticated()
             )

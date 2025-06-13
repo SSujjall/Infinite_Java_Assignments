@@ -12,7 +12,7 @@ public class RoleMapper {
         }
 
         return Roles.builder()
-                .roleName(dto.roleName())
+                .roleName(dto.roleName().toUpperCase())
                 .build();
     }
 }
